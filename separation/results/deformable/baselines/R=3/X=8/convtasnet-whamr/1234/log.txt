@@ -1,0 +1,155 @@
+2022-10-28 14:17:28,682 - speechbrain.core - INFO - Beginning experiment!
+2022-10-28 14:17:28,683 - speechbrain.core - INFO - Experiment folder: results/deformable/baselines/R=3/X=8/convtasnet-whamr/1234
+2022-10-28 14:17:29,089 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+attrs==22.1.0
+black==19.10b0
+certifi==2021.10.8
+cfgv==3.3.1
+charset-normalizer==2.0.12
+click==8.0.4
+cycler @ file:///tmp/build/80754af9/cycler_1637851556182/work
+dc1d==0.0.1
+distlib==0.3.6
+entrypoints==0.3
+filelock==3.8.0
+flake8==3.7.9
+fonttools==4.25.0
+huggingface-hub==0.7.0
+HyperPyYAML==1.0.1
+identify==2.5.8
+idna==3.3
+joblib==1.2.0
+kiwisolver @ file:///opt/conda/conda-bld/kiwisolver_1638569886207/work
+matplotlib @ file:///tmp/build/80754af9/matplotlib-suite_1647441664166/work
+mccabe==0.6.1
+mkl-fft==1.3.1
+mkl-random @ file:///tmp/build/80754af9/mkl_random_1626186066731/work
+mkl-service==2.4.0
+more-itertools==9.0.0
+munkres==1.1.4
+nodeenv==1.7.0
+numpy @ file:///tmp/build/80754af9/numpy_and_numpy_base_1634095651905/work
+packaging @ file:///tmp/build/80754af9/packaging_1637314298585/work
+pathspec==0.10.1
+Pillow==9.0.1
+platformdirs==2.5.2
+pluggy==0.13.1
+pre-commit==2.20.0
+py==1.11.0
+pycodestyle==2.5.0
+pyflakes==2.1.1
+pyparsing @ file:///tmp/build/80754af9/pyparsing_1635766073266/work
+pytest==5.4.1
+python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
+PyYAML==6.0
+regex==2022.9.13
+requests==2.27.1
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.7
+scipy==1.9.3
+sentencepiece==0.1.97
+sip==4.19.13
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+-e git+https://github.com/jwr1995/speechbrain.git@479144c274aa5c9bdfeb47472a3a55f073f2dbd4#egg=speechbrain
+toml==0.10.2
+torch==1.11.0
+torchaudio==0.11.0
+torchvision==0.12.0
+tornado @ file:///tmp/build/80754af9/tornado_1606942317143/work
+tqdm==4.64.1
+typed-ast==1.5.4
+typing_extensions @ file:///opt/conda/conda-bld/typing_extensions_1647553014482/work
+urllib3==1.26.9
+virtualenv==20.16.6
+wcwidth==0.2.5
+yamllint==1.23.0
+
+
+2022-10-28 14:17:29,142 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/will/Insync/will9444555@hotmail.com/OneDrive/Projects/DTCN/separation/train.py", line 1323, in <module>
+    from prepare_data import prepare_wham_whamr_csv, prepare_wsjmix_csv
+  File "/home/will/Insync/will9444555@hotmail.com/OneDrive/Projects/DTCN/separation/../prepare_data.py", line 10, in <module>
+    import soundfile as sf
+ModuleNotFoundError: No module named 'soundfile'
+2022-10-28 14:17:59,232 - speechbrain.core - INFO - Beginning experiment!
+2022-10-28 14:17:59,232 - speechbrain.core - INFO - Experiment folder: results/deformable/baselines/R=3/X=8/convtasnet-whamr/1234
+2022-10-28 14:17:59,591 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+attrs==22.1.0
+black==19.10b0
+certifi==2021.10.8
+cffi==1.15.1
+cfgv==3.3.1
+charset-normalizer==2.0.12
+click==8.0.4
+cycler @ file:///tmp/build/80754af9/cycler_1637851556182/work
+dc1d==0.0.1
+distlib==0.3.6
+entrypoints==0.3
+filelock==3.8.0
+flake8==3.7.9
+fonttools==4.25.0
+huggingface-hub==0.7.0
+HyperPyYAML==1.0.1
+identify==2.5.8
+idna==3.3
+joblib==1.2.0
+kiwisolver @ file:///opt/conda/conda-bld/kiwisolver_1638569886207/work
+matplotlib @ file:///tmp/build/80754af9/matplotlib-suite_1647441664166/work
+mccabe==0.6.1
+mkl-fft==1.3.1
+mkl-random @ file:///tmp/build/80754af9/mkl_random_1626186066731/work
+mkl-service==2.4.0
+more-itertools==9.0.0
+munkres==1.1.4
+nodeenv==1.7.0
+numpy @ file:///tmp/build/80754af9/numpy_and_numpy_base_1634095651905/work
+packaging @ file:///tmp/build/80754af9/packaging_1637314298585/work
+pathspec==0.10.1
+Pillow==9.0.1
+platformdirs==2.5.2
+pluggy==0.13.1
+pre-commit==2.20.0
+py==1.11.0
+pycodestyle==2.5.0
+pycparser==2.21
+pyflakes==2.1.1
+pyparsing @ file:///tmp/build/80754af9/pyparsing_1635766073266/work
+PySoundFile==0.9.0.post1
+pytest==5.4.1
+python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
+PyYAML==6.0
+regex==2022.9.13
+requests==2.27.1
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.7
+scipy==1.9.3
+sentencepiece==0.1.97
+sip==4.19.13
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+-e git+https://github.com/jwr1995/speechbrain.git@479144c274aa5c9bdfeb47472a3a55f073f2dbd4#egg=speechbrain
+toml==0.10.2
+torch==1.11.0
+torchaudio==0.11.0
+torchvision==0.12.0
+tornado @ file:///tmp/build/80754af9/tornado_1606942317143/work
+tqdm==4.64.1
+typed-ast==1.5.4
+typing_extensions @ file:///opt/conda/conda-bld/typing_extensions_1647553014482/work
+urllib3==1.26.9
+virtualenv==20.16.6
+wcwidth==0.2.5
+yamllint==1.23.0
+
+
+2022-10-28 14:17:59,637 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/will/Insync/will9444555@hotmail.com/OneDrive/Projects/DTCN/separation/train.py", line 1349, in <module>
+    run_on_main(
+  File "/home/will/Insync/will9444555@hotmail.com/OneDrive/Projects/speechbrain/speechbrain/utils/distributed.py", line 61, in run_on_main
+    func(*args, **kwargs)
+  File "/home/will/Insync/will9444555@hotmail.com/OneDrive/Projects/DTCN/separation/../prepare_data.py", line 156, in prepare_wham_whamr_csv
+    create_wham_whamr_csv(datapath, savepath, fs,mix_folder=mix_folder,
+  File "/home/will/Insync/will9444555@hotmail.com/OneDrive/Projects/DTCN/separation/../prepare_data.py", line 277, in create_wham_whamr_csv
+    files = os.listdir(mix_path)
+FileNotFoundError: [Errno 2] No such file or directory: '/fastdata/acp19jwr/data/whamr/wav8k/min/tr/mix_both_reverb/'
