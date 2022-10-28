@@ -1,5 +1,5 @@
 # ################################
-# Model: convtasnet for source separation
+# Model: dtcn for source separation
 # https://arxiv.org/abs/2010.13154
 #
 # Dataset : WHAMR!
@@ -25,10 +25,10 @@ mini: False # if true only uses a quarter of the wham/whamr data
 # e.g. /yourpath/wsj0-processed/si_tr_s/
 # you need to convert the original wsj0 to 8k
 # you can do this conversion with the script ../meta/preprocess_dynamic_mixing.py
-base_folder_dm: /home/acp19jwr/fastdata/data/wsj0/si_tr_s_processed
+base_folder_dm: /yourpath/wsj0-processed/si_tr_s/
 
-experiment_name: convtasnet-whamr
-experiment_folder: !ref deformable/dm/R=<R>/X=<X>
+experiment_name: dtcn-whamr
+experiment_folder: !ref deformable/baselines/R=<R>/X=<X>
 output_folder: !ref results/<experiment_folder>/<experiment_name>/<seed>
 train_log: !ref <output_folder>/train_log.txt
 save_folder: !ref <output_folder>/save
@@ -60,17 +60,17 @@ limit_training_signal_len: True
 training_signal_len: 32000
 
 # Set it to True to dynamically create mixtures at training time
-dynamic_mixing: True
+dynamic_mixing: False
 
 # Parameters for data augmentation
 
 # rir_path variable points to the directory of the room impulse responses
 # e.g. /miniscratch/subakany/rir_wavs
 # If the path does not exist, it is created automatically.
-rir_path: /home/acp19jwr/fastdata/data/whamr/rirs/tr
+# rir_path: /share/mini1/usr/will/scratch/whamr/rir_wavs
 
 use_wavedrop: False
-use_speedperturb: True
+use_speedperturb: False
 use_speedperturb_sameforeachsource: False
 use_rand_shift: False
 min_shift: -8000

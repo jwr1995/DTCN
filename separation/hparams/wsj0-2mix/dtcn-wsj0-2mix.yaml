@@ -1,8 +1,8 @@
 # ################################
-# Model: convtasnet for source separation
+# Model: dtcn for source separation
 # https://arxiv.org/abs/2010.13154
 #
-# Dataset : WHAMR!
+# Dataset : WSJ0-2Mix
 # ################################
 # Basic parameters
 # Seed needs to be set at top of yaml, before objects with parameters are made
@@ -13,10 +13,10 @@ __set_seed: !apply:torch.manual_seed [!ref <seed>]
 # Data params
 
 # the data folder for the wham dataset
-# data_folder needs to follow the format:  /yourpath/whamr.
-# make sure to use the name whamr at your top folder for the dataset!
+# data_folder needs to follow the format:  /yourpath/wsj0-2mix.
+# make sure to use the name wsj0-2mix at your top folder for the dataset!
 data_folder: /fastdata/acp19jwr/data/wsj0-2mix
-# mini: False # if true only uses a quarter of the wham/whamr data
+# mini: False # if true only uses a quarter of the wham/wsj0-2mix data
 
 
 # the path for wsj0/si_tr_s/ folder -- only needed if dynamic mixing is used
@@ -25,13 +25,13 @@ data_folder: /fastdata/acp19jwr/data/wsj0-2mix
 # you can do this conversion with the script ../meta/preprocess_dynamic_mixing.py
 base_folder_dm: /yourpath/wsj0-processed/si_tr_s/
 
-experiment_name: convtasnet
+experiment_name: dtcn
 experiment_folder: !ref wsj0-2mix/<experiment_name>/R=<R>/X=<X>
 output_folder: !ref results/<experiment_folder>/<seed>
 train_log: !ref <output_folder>/train_log.txt
 save_folder: !ref <output_folder>/save
 
-# the file names should start with whamr instead of whamorg
+# the file names should start with wsj0-2mix instead of whamorg
 train_data: !ref <save_folder>/wsj_tr.csv
 valid_data: !ref <save_folder>/wsj_cv.csv
 test_data: !ref <save_folder>/wsj_tt.csv
@@ -65,7 +65,7 @@ dynamic_mixing: False
 # rir_path variable points to the directory of the room impulse responses
 # e.g. /miniscratch/subakany/rir_wavs
 # If the path does not exist, it is created automatically.
-# rir_path: /share/mini1/usr/will/scratch/whamr/rir_wavs
+# rir_path: /share/mini1/usr/will/scratch/wsj0-2mix/rir_wavs
 
 use_wavedrop: False
 use_speedperturb: False

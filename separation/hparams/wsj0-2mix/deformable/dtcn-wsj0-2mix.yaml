@@ -1,8 +1,8 @@
 # ################################
-# Model: convtasnet for source separation
+# Model: dtcn for source separation
 # https://arxiv.org/abs/2010.13154
 #
-# Dataset : WHAMR!
+# Dataset : WSJ0-2Mix
 # ################################
 # Basic parameters
 # Seed needs to be set at top of yaml, before objects with parameters are made
@@ -13,30 +13,28 @@ __set_seed: !apply:torch.manual_seed [!ref <seed>]
 # Data params
 
 # the data folder for the wham dataset
-# data_folder needs to follow the format:  /yourpath/whamr.
-# make sure to use the name whamr at your top folder for the dataset!
-data_folder: /fastdata/acp19jwr/data/whamr
-alternate_path: !ref <data_folder>
-mix_folder: mix_both_reverb
-mini: False # if true only uses a quarter of the wham/whamr data
+# data_folder needs to follow the format:  /yourpath/wsj0-2mix.
+# make sure to use the name wsj0-2mix at your top folder for the dataset!
+data_folder: /fastdata/acp19jwr/data/wsj0-2mix
+# mini: False # if true only uses a quarter of the wham/wsj0-2mix data
 
 
 # the path for wsj0/si_tr_s/ folder -- only needed if dynamic mixing is used
 # e.g. /yourpath/wsj0-processed/si_tr_s/
 # you need to convert the original wsj0 to 8k
 # you can do this conversion with the script ../meta/preprocess_dynamic_mixing.py
-base_folder_dm: /home/acp19jwr/fastdata/data/wsj0/si_tr_s_processed
+base_folder_dm: /yourpath/wsj0-processed/si_tr_s/
 
-experiment_name: convtasnet-whamr
-experiment_folder: !ref deformable/dm/shared_weights/R=<R>/X=<X>
-output_folder: !ref results/<experiment_folder>/<experiment_name>/<seed>
+experiment_name: deformable
+experiment_folder: !ref wsj0-2mix/<experiment_name>/R=<R>/X=<X>
+output_folder: !ref results/<experiment_folder>/<seed>
 train_log: !ref <output_folder>/train_log.txt
 save_folder: !ref <output_folder>/save
 
-# the file names should start with whamr instead of whamorg
-train_data: !ref <save_folder>/whamr_tr.csv
-valid_data: !ref <save_folder>/whamr_cv.csv
-test_data: !ref <save_folder>/whamr_tt.csv
+# the file names should start with wsj0-2mix instead of whamorg
+train_data: !ref <save_folder>/wsj_tr.csv
+valid_data: !ref <save_folder>/wsj_cv.csv
+test_data: !ref <save_folder>/wsj_tt.csv
 skip_prep: False
 
 # Experiment params
@@ -44,12 +42,12 @@ auto_mix_prec: False # Set it to True for mixed precision
 test_only: False
 num_spks: 2 # set to 3 for wsj0-3mix
 progressbar: True
-save_audio: True # Save estimated sources on disk
+save_audio: False # Save estimated sources on disk
 sample_rate: 8000
 
 # Training parameters
 N_epochs: 100
-batch_size: 2
+batch_size: 1
 lr: 0.001
 clip_grad_norm: 5
 loss_upper_lim: 9999  # this is the upper limit for an acceptable loss
@@ -60,17 +58,17 @@ limit_training_signal_len: True
 training_signal_len: 32000
 
 # Set it to True to dynamically create mixtures at training time
-dynamic_mixing: True
+dynamic_mixing: False
 
 # Parameters for data augmentation
 
 # rir_path variable points to the directory of the room impulse responses
 # e.g. /miniscratch/subakany/rir_wavs
 # If the path does not exist, it is created automatically.
-rir_path: /home/acp19jwr/fastdata/data/whamr/rirs/tr
+# rir_path: /share/mini1/usr/will/scratch/wsj0-2mix/rir_wavs
 
 use_wavedrop: False
-use_speedperturb: True
+use_speedperturb: False
 use_speedperturb_sameforeachsource: False
 use_rand_shift: False
 min_shift: -8000
@@ -123,7 +121,6 @@ MaskNet: !new:src.deformable.MaskNet
     norm_type: 'gLN'
     causal: False
     mask_nonlinear: 'relu'
-    shared_weights: True
 
 Decoder: !new:speechbrain.lobes.models.dual_path.Decoder
     in_channels: !ref <N_encoder_out>
