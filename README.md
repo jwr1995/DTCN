@@ -3,7 +3,7 @@ This repository  provides training and evalution scripts for the DTCN speech sep
 
 As baseline TCN schema is also provided along with tools for estimating computational efficiency.
 
-This recipe is a fork of the WHAMandWHAMR in the SpeechBrain library (required, see below). For more help and information on any SpeechBrain related issues:
+This recipe is a fork of the WHAMandWHAMR recipe in the SpeechBrain library (required, see below). For more help and information on any SpeechBrain related issues:
  * https://speechbrain.github.io/
  * https://github.com/speechbrain/speechbrain
 
