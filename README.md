@@ -17,10 +17,12 @@ Models:
  * Temporal Convolutional Networks (Conv-TasNet without skip connections)
 
 # Running basic script
-First install required packages
+First install SRMRpy and remaining required packages
 ```
-git clone https://github.com/jwr1995/dc1d.git
-cd dc1d
+git clone https://github.com/jfsantos/SRMRpy.git
+cd SRMRpy
+python setup.py install
+
 pip install -r requirements.txt
 ```
 Then to run basic training of a DTCN model do

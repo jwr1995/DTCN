@@ -69,24 +69,16 @@ class Separation(sb.Brain):
             from thop import profile
             from src.macs import sb_ops_dict
 
-        if type(self.hparams.MaskNet) == dtcn.MaskNet:
-            self.hparams.MaskNet.set_store_intermediates(store_intermediates)
-
         # Unpack lists and put tensors in the right device
         if not profiler:
             mix, mix_lens = mix
             mix, mix_lens = mix.to(self.device), mix_lens.to(self.device)
-
-            # self.intermediates["mix"] = mix.detach().cpu().numpy()
             
             # Convert targets to tensor
             targets = torch.cat(
                 [targets[i][0].unsqueeze(-1) for i in range(self.hparams.num_spks)],
                 dim=-1,
             ).to(self.device)
-
-        # self.intermediates["targets"] = ta.
-        # rgets.detach().cpu().numpy()
 
         # Add speech distortions
         if stage == sb.Stage.TRAIN and not profiler:
@@ -240,7 +232,6 @@ class Separation(sb.Brain):
     
     def get_intermediate(self,key):
         return self._intermediates[key]
-        
     
     def permutation_assign(self, mix_w, est_mask, targets, T_original):
         print(mix_w.shape, est_mask.shape, targets.shape, T_original)
@@ -337,49 +328,7 @@ class Separation(sb.Brain):
         if "wham" in self.hparams.data_folder:
             noise = batch.noise_sig[0]
 
-        if type(self.hparams.MaskNet) == ExtendedMaskNet:
-            mix_w, _ = mixture
-            B, L = mix_w.shape
-            num_extra_feats = len(self.hparams.extended_features)
-            extra_feats = torch.zeros((B,num_extra_feats)).to(self.device)
-
-            for i, feat in enumerate(self.hparams.extended_features):
-                if "t60" == feat:
-                    extra_feats[:,i] = batch.t60_val
-                if "room_size" == feat:
-                    extra_feats[:,i] =  batch.room_size_val
-                if "snr" == feat:
-                    extra_feats[:,i] = batch.snr_val
-                if "room_x" == feat: 
-                    extra_feats[:,i] = batch.room_x_val
-                if "room_y" == feat: 
-                    extra_feats[:,i] = batch.room_y_val
-                if "room_z" == feat: 
-                    extra_feats[:,i] = batch.room_z_val
-                if "micL_x" == feat: 
-                    extra_feats[:,i] = batch.micL_x_val
-                if "micL_y" == feat: 
-                    extra_feats[:,i] = batch.micL_y_val
-                if "micR_x" == feat: 
-                    extra_feats[:,i] = batch.micR_x_val
-                if "micR_y" == feat: 
-                    extra_feats[:,i] = batch.micR_y_val 
-                if "mic_z" == feat: 
-                    extra_feats[:,i] = batch.mic_z_val 
-                if "s1_x" == feat: 
-                    extra_feats[:,i] = batch.s1_x_val 
-                if "s1_y" == feat: 
-                    extra_feats[:,i] = batch.s1_y_val 
-                if "s1_z" == feat: 
-                    extra_feats[:,i] = batch.s1_z_val 
-                if "s2_x" == feat: 
-                    extra_feats[:,i] = batch.s2_x_val 
-                if "s2_y" == feat: 
-                    extra_feats[:,i] = batch.s2_y_val 
-                if "s2_z" == feat: 
-                    extra_feats[:,i] = batch.s2_z_val 
-        else:
-            extra_feats = None
+        extra_feats = None # required for unimplemented functionality
 
         if self.hparams.auto_mix_prec:
             with autocast():
@@ -485,49 +434,8 @@ class Separation(sb.Brain):
             if self.hparams.encode_rirs:  
                 rirs.append(batch.s2_rir_sig)
 
-        if type(self.hparams.MaskNet) == ExtendedMaskNet:
-            mix_w, _ = mixture
-            B, L = mix_w.shape
-            num_extra_feats = len(self.hparams.extended_features)
-            extra_feats = torch.zeros((B,num_extra_feats)).to(self.device)
-
-            for i, feat in enumerate(self.hparams.extended_features):
-                if "t60" == feat:
-                    extra_feats[:,i] = batch.t60_val
-                if "room_size" == feat:
-                    extra_feats[:,i] =  batch.room_size_val
-                if "snr" == feat:
-                    extra_feats[:,i] = batch.snr_val
-                if "room_x" == feat: 
-                    extra_feats[:,i] = batch.room_x_val
-                if "room_y" == feat: 
-                    extra_feats[:,i] = batch.room_y_val
-                if "room_z" == feat: 
-                    extra_feats[:,i] = batch.room_z_val
-                if "micL_x" == feat: 
-                    extra_feats[:,i] = batch.micL_x_val
-                if "micL_y" == feat: 
-                    extra_feats[:,i] = batch.micL_y_val
-                if "micR_x" == feat: 
-                    extra_feats[:,i] = batch.micR_x_val
-                if "micR_y" == feat: 
-                    extra_feats[:,i] = batch.micR_y_val 
-                if "mic_z" == feat: 
-                    extra_feats[:,i] = batch.mic_z_val 
-                if "s1_x" == feat: 
-                    extra_feats[:,i] = batch.s1_x_val 
-                if "s1_y" == feat: 
-                    extra_feats[:,i] = batch.s1_y_val 
-                if "s1_z" == feat: 
-                    extra_feats[:,i] = batch.s1_z_val 
-                if "s2_x" == feat: 
-                    extra_feats[:,i] = batch.s2_x_val 
-                if "s2_y" == feat: 
-                    extra_feats[:,i] = batch.s2_y_val 
-                if "s2_z" == feat: 
-                    extra_feats[:,i] = batch.s2_z_val 
-        else:
-            extra_feats = None
+        
+        extra_feats = None
 
         basenames = batch.basename
 
@@ -734,20 +642,7 @@ class Separation(sb.Brain):
                     else:
                         rirs = None
 
-                    if type(self.hparams.Encoder) == ExtendedMaskNet:
-                        B, L = mixture.shape
-                        num_extra_feats = len(self.hparams.extended_features)
-                        extra_feats = torch.zeros((B,num_extra_feats))
-
-                        for i, feat in enumerate(self.hparams.extended_features):
-                            if "t60" == feat:
-                                extra_feats[:,i] = batch.t60
-                            if "room_size" == feat:
-                                extra_feats[:,i] = batch.room_size
-                            if "snr" == feat:
-                                extra_feats[:,i] = batch.snr,
-                    else:
-                        extra_feats = None
+                    extra_feats = None
 
                     if self.hparams.num_spks > 1:
                         targets.append(batch.s2_sig)
@@ -757,49 +652,7 @@ class Separation(sb.Brain):
                     if self.hparams.num_spks > 2:
                         targets.append(batch.s3_sig)
                     
-                    if type(self.hparams.MaskNet) == ExtendedMaskNet:
-                        mix_w = mixture
-                        B, L = mix_w.shape
-                        num_extra_feats = len(self.hparams.extended_features)
-                        extra_feats = torch.zeros((B,num_extra_feats)).to(self.device)
-
-                        for i, feat in enumerate(self.hparams.extended_features):
-                            if "t60" == feat:
-                                extra_feats[:,i] = batch.t60_val
-                            if "room_size" == feat:
-                                extra_feats[:,i] =  batch.room_size_val
-                            if "snr" == feat:
-                                extra_feats[:,i] = batch.snr_val
-                            if "room_x" == feat: 
-                                extra_feats[:,i] = batch.room_x_val
-                            if "room_y" == feat: 
-                                extra_feats[:,i] = batch.room_y_val
-                            if "room_z" == feat: 
-                                extra_feats[:,i] = batch.room_z_val
-                            if "micL_x" == feat: 
-                                extra_feats[:,i] = batch.micL_x_val
-                            if "micL_y" == feat: 
-                                extra_feats[:,i] = batch.micL_y_val
-                            if "micR_x" == feat: 
-                                extra_feats[:,i] = batch.micR_x_val
-                            if "micR_y" == feat: 
-                                extra_feats[:,i] = batch.micR_y_val 
-                            if "mic_z" == feat: 
-                                extra_feats[:,i] = batch.mic_z_val 
-                            if "s1_x" == feat: 
-                                extra_feats[:,i] = batch.s1_x_val 
-                            if "s1_y" == feat: 
-                                extra_feats[:,i] = batch.s1_y_val 
-                            if "s1_z" == feat: 
-                                extra_feats[:,i] = batch.s1_z_val 
-                            if "s2_x" == feat: 
-                                extra_feats[:,i] = batch.s2_x_val 
-                            if "s2_y" == feat: 
-                                extra_feats[:,i] = batch.s2_y_val 
-                            if "s2_z" == feat: 
-                                extra_feats[:,i] = batch.s2_z_val 
-                    else:
-                        extra_feats = None
+                    extra_feats = None
 
                     with torch.no_grad():
                         predictions, targets = self.compute_forward(
