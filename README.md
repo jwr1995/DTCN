@@ -25,11 +25,12 @@ python setup.py install
 
 pip install -r requirements.txt
 ```
-Then to run basic training of a DTCN model do
+Then to run basic training of a DTCN model firstly change the ```data_folder``` hyperparameter in the ```separation/hparams/deformable/dtcn-whamr.yaml``` folder. Then run
 ```
 cd separation
 python train.py hparams/deformable/dtcn-whamr.yaml
 ```
+In order to use dynamic mixing you will also need to change the ```base_folder_dm``` and ```rir_path``` hyperparameters.
 
 # Paper
 Please cite the following paper if you make use of any of this codebase:
