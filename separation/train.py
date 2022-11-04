@@ -232,48 +232,6 @@ class Separation(sb.Brain):
     
     def get_intermediate(self,key):
         return self._intermediates[key]
-    
-    def permutation_assign(self, mix_w, est_mask, targets, T_original):
-        print(mix_w.shape, est_mask.shape, targets.shape, T_original)
-        # est_mask = C, batch_size, K, N
-        mix_w = torch.stack([mix_w] * self.hparams.num_spks)
-
-        sep_h = mix_w * est_mask
-
-        C, B, K, N = sep_h.shape
-
-        # First pass decoding
-        est_source = torch.cat(
-            [
-                self.hparams.Decoder(sep_h[i]).unsqueeze(-1)
-                for i in range(self.hparams.num_spks)
-            ],
-            dim=-1,
-        )
-
-        # T changed after conv1d in encoder, fix it here
-        T_est = est_source.size(1)
-        if T_original > T_est:
-            est_source = F.pad(est_source, (0, 0, 0, T_original - T_est))
-        else:
-            est_source = est_source[:, :T_original, :]
-        
-        si_snr, optimal_permutation = si_snr_with_permutation(est_source, targets)
-
-        est_mask = est_mask.reshape(B,C,K,N)
-
-        est_mask_reordered = est_mask.clone()
-
-        for i, row in enumerate(est_mask):
-            for j, val in enumerate(optimal_permutation[i]):
-                est_mask_reordered[i][j] = row[val]
-        
-        del est_mask
-
-        est_mask_reordered = est_mask_reordered.reshape(C,B,K,N)
-
-        return est_mask_reordered
-        
 
     def match_len(self, tensors, target_length):
         sigs = torch.cat(
