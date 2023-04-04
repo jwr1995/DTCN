@@ -28,20 +28,25 @@ pip install -r requirements.txt
 Then to run basic training of a DTCN model firstly change the ```data_folder``` hyperparameter in the ```separation/hparams/deformable/dtcn-whamr.yaml``` folder. Then run
 ```
 cd separation
-python train.py hparams/deformable/dtcn-whamr.yaml
+HPARAMS=hparams/deformable/dtcn-whamr.yaml
+python train.py $HPARAMS
 ```
-In order to use dynamic mixing you will also need to change the ```base_folder_dm``` and ```rir_path``` hyperparameters.
+or if you wish to use multi GPU (recommended) run
+```
+python -m torch.distributed.launch --nproc_per_node=$NGPU train.py $HPARAMS --distributed_launch --distributed_backend='nccl' 
+
+```
+replacing ```NGPU``` with the desired number of GPUs to use.
+In order to use dynamic mixing you will also need to change the ```base_folder_dm``` and ```rir_path``` hyperparameters, refer to https://github.com/speechbrain/speechbrain/blob/develop/recipes/WHAMandWHAMR/separation/README.md for more info on setting up dynamic mixing in SpeechBrain recipes.
 
 # Paper
 Please cite the following paper if you make use of any of this codebase:
 ```
-@misc{ravenscroft2022dtcn,
-  doi = {10.48550/ARXIV.2210.15305},
-  url = {https://arxiv.org/abs/2210.15305},
+@inproceedings{ravenscroft2022dtcn,
   author = {Ravenscroft, William and Goetze, Stefan and Hain, Thomas},
   title = {Deformable Temporal Convolutional Networks for Monaural Noisy Reverberant Speech Separation},
-  publisher = {arXiv},
-  year = {2022},
-  copyright = {Creative Commons Attribution 4.0 International}
+  booktitle = {ICASSP 2023},
+  month={June},
+  year = {2023},
 }
 ```
