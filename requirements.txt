@@ -1,5 +1,5 @@
 speechbrain
-dc1d
+dc1d==0.0.2
 pysepm
 pesq
 thop
