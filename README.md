@@ -39,6 +39,9 @@ python -m torch.distributed.launch --nproc_per_node=$NGPU train.py $HPARAMS --di
 replacing ```NGPU``` with the desired number of GPUs to use.
 In order to use dynamic mixing you will also need to change the ```base_folder_dm``` and ```rir_path``` hyperparameters, refer to https://github.com/speechbrain/speechbrain/blob/develop/recipes/WHAMandWHAMR/separation/README.md for more info on setting up dynamic mixing in SpeechBrain recipes.
 
+# Known issues
+ * The main issue at present is mixed precision training with ```autocast``` enabled. The reason for this is unknown. At present we do not recommend trying to use this functionality.
+
 # Paper
 Please cite the following paper if you make use of any of this codebase:
 ```
