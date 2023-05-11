@@ -45,11 +45,13 @@ In order to use dynamic mixing you will also need to change the ```base_folder_d
 # Paper
 Please cite the following paper if you make use of any of this codebase:
 ```
-@inproceedings{ravenscroft2022dtcn,
-  author = {Ravenscroft, William and Goetze, Stefan and Hain, Thomas},
-  title = {Deformable Temporal Convolutional Networks for Monaural Noisy Reverberant Speech Separation},
-  booktitle = {ICASSP 2023},
-  month={June},
-  year = {2023},
-}
+@INPROCEEDINGS{dtcn23,
+  author={Ravenscroft, William and Goetze, Stefan and Hain, Thomas},
+  booktitle={ICASSP 2023 - 2023 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)}, 
+  title={Deformable Temporal Convolutional Networks for Monaural Noisy Reverberant Speech Separation}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1-5},
+  doi={10.1109/ICASSP49357.2023.10095230}}
 ```
