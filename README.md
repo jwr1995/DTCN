@@ -1,4 +1,7 @@
 # Deformable Temporal Convolutional Networks (DTCN)
+
+Work on this repository is moving to https://github.com/jwr1995/PubSep
+
 This repository  provides training and evalution scripts for the DTCN speech separation model described in the paper "Deformable Temporal Convolutional Networks for Monaural Noisy Reverberant Speech Separation" - https://arxiv.org/pdf/2210.15305.pdf.
 
 As baseline TCN schema is also provided along with tools for estimating computational efficiency.
